@@ -3,26 +3,33 @@ import PropTypes from 'prop-types';
 
 class ScriptLoader extends Component {
     
-    timeout = null;
+    constructor() {
+        super();
+        this.timeout = null;
+    }
     
     componentDidMount() {
-        this.timeout = setTimeout(this._createScript, this.props.delayMs);
+        const createScript = this._createScript.bind(this);
+        this.timeout = setTimeout(createScript, this.props.delayMs);
     }
     
     componentWillUnmount() {
         clearTimeout(this.timeout);
     }
 
-    _createScript = () => {
+    _createScript() {
         const { 
             onCreate, 
             onError,
             onSuccess, 
             src, 
-            ...otherProps 
         } = this.props;
 
         onCreate();
+        
+        // TODO: waiting for microbundle to switch to babel
+        // so we can use the spread operator (...)
+        const otherProps = {};
 
         const script = document.createElement('script');
         script.src = src;
