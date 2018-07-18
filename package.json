@@ -1,7 +1,7 @@
 {
   "name": "react-script-tag",
   "author": "Jose Santos <jose@gumgum.com>",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A React replacement for the native script tag",
   "license": "MIT",
   "main": "dist/react-script-tag.js",
@@ -25,7 +25,7 @@
   "peerDependencies": {
     "prop-types": ">15.6",
     "react": ">=16"
-    },
+  },
   "devDependencies": {
     "microbundle": "^0.5.1",
     "prop-types": "^15.6.2",
