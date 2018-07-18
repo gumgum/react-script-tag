@@ -1,5 +1,5 @@
 {
-  "name": "react-script-tag",
+  "name": "@gumgum/react-script-tag",
   "author": "Jose Santos <jose@gumgum.com>",
   "version": "0.0.1",
   "description": "A React replacement for the native script tag",
