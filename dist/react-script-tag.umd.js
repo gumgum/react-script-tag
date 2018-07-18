@@ -1,0 +1,2 @@
+!function(t,e){"object"==typeof exports&&"undefined"!=typeof module?module.exports=e(require("react")):"function"==typeof define&&define.amd?define(["react"],e):t.reactScriptTag=e(t.react)}(this,function(t){return function(t){function e(){t.call(this),this.state={}}return t&&(e.__proto__=t),(e.prototype=Object.create(t&&t.prototype)).constructor=e,e.prototype.render=function(){return h("h1",null,"Hello World")},e}((t=t&&t.hasOwnProperty("default")?t.default:t).Component)});
+//# sourceMappingURL=react-script-tag.umd.js.map

@@ -1,0 +1,35 @@
+{
+  "name": "react-script-tag",
+  "author": "Jose Santos <jose@gumgum.com>",
+  "version": "0.0.0",
+  "description": "A React replacement for the native script tag",
+  "license": "MIT",
+  "main": "dist/react-script-tag.js",
+  "umd:main": "dist/react-script-tag.umd.js",
+  "module": "dist/react-script-tag.m.js",
+  "source": "src/index.js",
+  "sideEffects": false,
+  "scripts": {
+    "build": "microbundle",
+    "dev": "microbundle watch",
+    "prepublish": "yarn run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gumgum/react-script-tag.git"
+  },
+  "keywords": [
+    "react",
+    "component"
+  ],
+  "peerDependencies": {
+    "prop-types": ">15.6",
+    "react": ">=16"
+    },
+  "devDependencies": {
+    "microbundle": "^0.5.1",
+    "prop-types": "^15.6.2",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
+  }
+}
