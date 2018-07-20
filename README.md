@@ -10,6 +10,16 @@ well.
 Keywords: [Blazing fast](https://twitter.com/acdlite/status/974390255393505280)
 🔥, Minimal 📦, and Simple 🤖
 
+## Table of Content
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Examples](#examples)
+- [API](#api)
+- [Roadmap](#roadmap)
+- [Contributors](#contributors)
+- [License](#license)
+
 ## Installation
 
 You can install this package thru [npm](https://www.npmjs.com/) or
