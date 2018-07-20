@@ -3,15 +3,9 @@
         [
             "@babel/preset-env",
             {
-                "targets": {
-                    "browsers": [
-                        ">0.25%",
-                        "not ie 11",
-                        "not op_mini all"
-                    ]
-                },
                 "useBuiltIns": "usage",
-                "modules": false
+                "modules": false,
+                "loose": true
             }
         ],
         "@babel/preset-stage-1",
@@ -21,7 +15,9 @@
         "production": {
             "plugins": [
                 "@babel/plugin-transform-react-constant-elements",
-                "transform-react-remove-prop-types"
+                ["transform-react-remove-prop-types", {
+                    "removeImport": true
+                }]
             ]
         },
         "test": {
