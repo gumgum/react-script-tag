@@ -16,14 +16,13 @@ class ScriptLoader extends Component {
     _appendScript = () => {
         const { 
             onCreate, 
+            onLoad,
             onError,
-            onSuccess, 
+            delayMs,
             src, 
             ...otherProps
         } = this.props;
 
-        onCreate();
-        
         const script = document.createElement('script');
         script.src = src;
 
@@ -32,9 +31,11 @@ class ScriptLoader extends Component {
             script.setAttribute(attr, value);
         }
 
-        script.onload = onSuccess;
-        script.onError = onError;
+        script.onload = onLoad;
+        script.onerror = onError;
         document.body.appendChild(script);
+
+        onCreate();
     };
 
     render() {
@@ -48,11 +49,11 @@ ScriptLoader.defaultProps = {
     onError: e => {
         throw new URIError(`The script ${e.target.src} is not accessible`);
     },
-    onSuccess: Function.prototype
+    onLoad: Function.prototype
 };
 
 ScriptLoader.propTypes = {
-    delay: PropTypes.number,
+    delayMs: PropTypes.number,
     onCreate: PropTypes.func,
     onError: PropTypes.func,
     onSuccess: PropTypes.func,
