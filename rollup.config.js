@@ -14,6 +14,7 @@ const config = {
     {
       file: pkg['umd:main'],
       format: 'umd',
+      sourcemap: true,
       name: 'ReactScriptTag',
       globals: {
         react: 'React'
@@ -22,7 +23,7 @@ const config = {
     {
       file: pkg.main,
       format: 'cjs',
-      name: 'ReactScriptTag',
+      sourcemap: true,
       globals: {
         react: 'React'
       }
@@ -30,14 +31,11 @@ const config = {
     {
       file: pkg.module,
       format: 'es',
+      sourcemap: true,
       globals: {
         react: 'React'
       }
     },
-  ],
-  external: [
-    'react',
-    'react-dom',
   ],
   plugins: [
     peerDepsExternal(),
