@@ -21,7 +21,6 @@
         "production": {
             "plugins": [
                 "@babel/plugin-transform-react-constant-elements",
-                "@babel/plugin-external-helpers",
                 "transform-react-remove-prop-types"
             ]
         },

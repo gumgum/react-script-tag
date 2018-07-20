@@ -15,15 +15,24 @@ const config = {
       file: pkg['umd:main'],
       format: 'umd',
       name: 'ReactScriptTag',
+      globals: {
+        react: 'React'
+      }
     },
     {
       file: pkg.main,
       format: 'cjs',
       name: 'ReactScriptTag',
+      globals: {
+        react: 'React'
+      }
     },
     {
       file: pkg.module,
       format: 'es',
+      globals: {
+        react: 'React'
+      }
     },
   ],
   external: [
