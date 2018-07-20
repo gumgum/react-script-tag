@@ -10,9 +10,7 @@
   "source": "src/index.js",
   "sideEffects": false,
   "scripts": {
-    "build": "microbundle",
-    "dev": "microbundle watch",
-    "prepublish": "yarn run build"
+    "prepublish": "echo \"hello\""
   },
   "repository": {
     "type": "git",
@@ -27,7 +25,8 @@
     "react": ">=16"
   },
   "devDependencies": {
-    "microbundle": "^0.5.1",
+    "@babel/preset-react": "^7.0.0-beta.54",
+    "@babel/preset-stage-1": "^7.0.0-beta.54",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1"

@@ -1,0 +1,34 @@
+{
+    "presets": [
+        [
+            "@babel/env",
+            {
+                "targets": {
+                    "browsers": [
+                        ">0.25%",
+                        "not ie 11",
+                        "not op_mini all"
+                    ]
+                },
+                "useBuiltIns": "usage",
+                "modules": false
+            }
+        ],
+        "@babel/preset-stage-1",
+        "@babel/preset-react"
+    ],
+    "env": {
+        "production": {
+            "plugins": [
+                "@babel/plugin-transform-react-constant-elements",
+                "@babel/plugin-external-helpers",
+                "transform-react-remove-prop-types"
+            ]
+        },
+        "test": {
+            "plugins": [
+                "@babel/plugin-transform-modules-commonjs"
+            ]
+        }
+    }
+}
