@@ -1,7 +1,7 @@
 {
   "name": "@gumgum/react-script-tag",
   "author": "Jose Santos <jose@gumgum.com>",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A React replacement for the native script tag",
   "license": "MIT",
   "main": "dist/react-script-tag.js",
