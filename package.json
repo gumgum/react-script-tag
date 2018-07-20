@@ -10,7 +10,7 @@
   "source": "src/index.js",
   "sideEffects": false,
   "scripts": {
-    "build": "rollup -c",
+    "build": "NODE_ENV=production rollup -c",
     "start": "rollup -c -w"
   },
   "repository": {
@@ -22,10 +22,10 @@
     "component"
   ],
   "peerDependencies": {
-    "prop-types": ">15.6",
     "react": ">=16"
   },
   "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.54",
     "@babel/core": "^7.0.0-beta.54",
     "@babel/plugin-external-helpers": "^7.0.0-beta.54",
     "@babel/plugin-transform-modules-commonjs": "^7.0.0-beta.54",
@@ -34,15 +34,13 @@
     "@babel/preset-react": "^7.0.0-beta.54",
     "@babel/preset-stage-1": "^7.0.0-beta.54",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.13",
+    "babel-preset-minify": "^0.4.3",
     "eslint": "^5.1.0",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.10.0",
-    "husky": "^0.14.3",
     "jest": "^23.4.1",
-    "node-sass": "^4.9.2",
-    "postcss": "^7.0.0",
     "prettier": "^1.13.7",
     "pretty-quick": "^1.6.0",
     "prop-types": "^15.6.2",
@@ -50,12 +48,13 @@
     "react-dom": "^16.4.1",
     "react-test-utils": "^0.0.1",
     "rollup": "^0.63.2",
-    "rollup-plugin-babel": "^3.0.7",
+    "rollup-plugin-babel": "^4.0.0-beta.7",
     "rollup-plugin-commonjs": "^9.1.3",
     "rollup-plugin-filesize": "^2.0.0",
     "rollup-plugin-local-resolve": "^1.0.7",
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-peer-deps-external": "^2.2.0",
-    "rollup-plugin-postcss": "^1.6.2"
+    "rollup-plugin-postcss": "^1.6.2",
+    "rollup-plugin-replace": "^2.0.0"
   }
 }
