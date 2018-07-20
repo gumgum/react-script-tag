@@ -3,6 +3,8 @@ node_modules/
 yarn.lock
 **/*.md
 !README.md
+.babelrc                        
+.editorconfig   
 jsconfig.json
 rollup.config.js
 yarn-error.log
