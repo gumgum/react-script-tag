@@ -3,3 +3,7 @@ node_modules/
 yarn.lock
 **/*.md
 !README.md
+jsconfig.json
+rollup.config.js
+yarn-error.log
+yarn.lock

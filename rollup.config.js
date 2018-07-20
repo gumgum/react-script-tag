@@ -5,8 +5,16 @@ import commonjs from 'rollup-plugin-commonjs';
 import filesize from 'rollup-plugin-filesize';
 import localResolve from 'rollup-plugin-local-resolve';
 import replace from "rollup-plugin-replace";
+import minify from 'rollup-plugin-babel-minify';
 
 import pkg from './package.json';
+
+const outputCommonConf = {
+  sourcemap: true,
+  globals: {
+    react: 'React'
+  }
+};
 
 const config = {
   input: 'src/index.js',
@@ -14,27 +22,18 @@ const config = {
     {
       file: pkg['umd:main'],
       format: 'umd',
-      sourcemap: true,
       name: 'ReactScriptTag',
-      globals: {
-        react: 'React'
-      }
+      ...outputCommonConf
     },
     {
       file: pkg.main,
       format: 'cjs',
-      sourcemap: true,
-      globals: {
-        react: 'React'
-      }
+      ...outputCommonConf
     },
     {
       file: pkg.module,
       format: 'es',
-      sourcemap: true,
-      globals: {
-        react: 'React'
-      }
+      ...outputCommonConf
     },
   ],
   plugins: [
@@ -48,6 +47,7 @@ const config = {
     replace({
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
     }),
+    minify({ comments: false }),
     filesize(),
   ],
 };
