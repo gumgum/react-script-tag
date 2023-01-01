@@ -76,7 +76,7 @@ const MyProfileComponent = () => {
             delayMs={30}
             onLoad={() => {
             console.log('My Profile.js script Loaded');
-            setLinkedLoaded(true); // set some state variable to initiate a re-render
+            setJsLoaded(true); // set some state variable to initiate a re-render
             }}
              />
 
