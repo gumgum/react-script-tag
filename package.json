@@ -1,13 +1,23 @@
 {
   "name": "react-script-tag-18",
-  "author": "Jose Santos <jose@gumgum.com>",
-  "version": "1.0.222",
-  "description": "React Script Tag 18",
-  "license": "MIT",
+  "author": "Jose Santos <jose@gumgum.com>, Mr. Liu <editor@ercaws.com>",
+  "version": "2.420.69",
+  "description": "React Script Tag 18, updated a four year old package that had a very well written script loader tag utility for react, updating to now use TypeScript and React 18",
+  "license": "MIT HUTTENLOCHER's REVENGE",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "source": "src/index.tsx",
   "sideEffects": false,
+  "files": [
+    "package.json",
+    "src",
+    "src/index.tsx",
+    "README.md",
+    "dist",
+    "dist/index.d.ts",
+    "dist/index.js",
+    "package-lock.json"
+  ],
   "scripts": {
     "start": "rollup -c -w",
     "build" : "tsc",
@@ -21,7 +31,19 @@
   },
   "keywords": [
     "react",
-    "component"
+    "component",
+    "script",
+    "script tag loader",
+    "async",
+    "async lock",
+    "react 18",
+    "react 18 async lock",
+    "node js",
+    "typescript",
+    "typescript 4.9",
+    "amazon legal",
+    "amazon legal where are my wages",
+    "amazon legal lawsuit pending"
   ],
   "peerDependencies": {
     "react": ">=18"

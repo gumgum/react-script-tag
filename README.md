@@ -50,6 +50,10 @@ will proceed to load your script.
 
 
 ### Example Usage
+
+#### Run a demo in your browser, with code, using CodeSandbox [here!](https://codesandbox.io/s/react-script-tag-demo-as-a-time-based-excersize-y8nidw)
+ - [View Demo](https://y8nidw.csb.app/)
+
 ``` jsx
 import React from 'react';
 import Script from 'react-script-tag-18';
