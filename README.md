@@ -52,7 +52,7 @@ will proceed to load your script.
 ### Example Usage
 ``` jsx
 import React from 'react';
-import Script from '@gumgum/react-script-tag';
+import Script from 'react-script-tag-18';
 
 const MyProfileComponent = () => {
     
