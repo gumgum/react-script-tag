@@ -1,4 +1,8 @@
-# React Script Tag 💉
+# React Script Tag Updated for React 18
+
+# [NPM Package](https://www.npmjs.com/package/react-script-tag-18)
+
+
 
 This react component is intended to be a drop-in replacement for the `<script>`
 html native tag. After you add it in any location of your react-app, the component
@@ -6,6 +10,16 @@ will take care on appending the corresponding script tag to your app's document.
 It supports all the [native
 attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script) as
 well.
+
+
+# Outside Change Log
+
+ - Dec 2022
+   - This is a really well written little tool that actually allows for script loading to at least feel some what asynchronously loadable. Just saw it fall out of date with its packages so updated them and also using typescript now. Creating a seperate NPM package for now but if the original author wants to add these changes I'll be more than happy to delete the npm package.
+   
+
+
+
 
 Keywords: [Blazing fast](https://twitter.com/acdlite/status/974390255393505280)
 🔥, Minimal 📦, and Simple 🤖
@@ -26,7 +40,7 @@ You can install this package thru [npm](https://www.npmjs.com/) or
 [yarn](https://yarnpkg.com):
 
 ``` sh
-yarn install @gumgum/react-script-tag
+yarn install react-script-tag-18
 ```
 
 ## Usage
@@ -34,32 +48,44 @@ yarn install @gumgum/react-script-tag
 You can use the `Script` component anywhere. Once it is mounted, the component
 will proceed to load your script.
 
+
+### Example Usage
 ``` jsx
 import React from 'react';
-import Script from '@gumgum/react-script-tag';
+import Script from 'react-script-tag-18';
 
-class MyApp extends React.Component {
+const MyProfileComponent = () => {
     
-    _onMyScriptLoad = () => {/* ... */};
-    _onMyScriptError = () => {/* ... */};
+   
+  const [jsLoaded , setJsLoaded] = React.useState(false);
 
     render() {
         return (
             <div>
-                {/* Your App's code */}
-                <Script
-                    src="//url-to-your-site.com/script.js"
-                    type="text/javascript"
-                    onLoad={ this._onMyScriptLoad }
-                    onError={ this._onMyScriptError }
-                    async
-                />
-            </div>
+            <div className="some-class-that-relies-on-profile-js" style={{
+                alignItems: 'center',
+                verticalAlign: 'middle',
+                textAlign: 'center',
+                display: 'flex-box',
+                justifyContent: 'center',
+                }}>
+                
+                </div>
+
+            <ScriptLoader src="https://platform.linkedin.com/badges/js/profile.js" 
+            delayMs={30}
+            onLoad={() => {
+            console.log('My Profile.js script Loaded');
+            setJsLoaded(true); // set some state variable to initiate a re-render
+            }}
+             />
+
+             </div>
         );
     }
 }
 
-export default MyApp;
+export default MyProfileComponent;
 ```
 
 > It is **recommended** that the `Script` tag is placed in a component that only
