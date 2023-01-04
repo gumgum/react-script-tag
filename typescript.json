@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-      "target": "es5",
+      "target": "es6",
       "lib": [
         "dom",
         "dom.iterable",
@@ -15,12 +15,16 @@
       "noFallthroughCasesInSwitch": true,
       "module": "commonjs",
       "moduleResolution": "node",
+      "sourceMap": "true",
       "resolveJsonModule": true,
       "isolatedModules": true,
       "noEmit": true,
-      "jsx": "react",
+      "declaration": true,
+      "declarationDir": "build",
+      "jsx": "react-jsx",
       "typeRoots": [
-        "node_modules/@types"      ]
+        "node_modules/@types"     
+       ]
     },
     "include": [
       "src"

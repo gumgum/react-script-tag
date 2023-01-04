@@ -4,17 +4,22 @@
     "noImplicitAny": true,
     "module": "CommonJS",
     "target": "ESNext",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "declaration": true,
-    "moduleResolution": "node",
+    "moduleResolution": "NodeNext",
     "isolatedModules": true,
-    "noEmit": false,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "allowJs": true,
     "esModuleInterop": true,
-    "outDir": "dist",
-    "declarationDir": "dist",
+    "outDir": "lib",
+    "declarationDir": "lib",
+    "noEmit": false
   },
-  "files": ["src/index.tsx"]
+  "files": ["src/ScriptTag/index.tsx"],
 
+  "include": [
+    "src/ScriptTag/index.tsx",
+  ]
   
 }

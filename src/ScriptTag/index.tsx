@@ -1,11 +1,10 @@
-
 import React from 'react';
 
 /** @class ScriptLoader
  * @description This a react component is intended to be a drop-in replacement for the <script> html native tag. After you add it in any location of your react-app, the component will take care on appending, the corresponding script tag to your app's document. It supports all the native attributes as well.
  * @example ```<ScriptLoader src="https://www.google.com/recaptcha/api.js" />```
 */
-class ScriptLoader extends React.Component<ScriptLoaderProps, {
+export default class ScriptTag extends React.Component<ScriptLoaderProps, {
     delayMs: number;
     src: string;
     timeout: NodeJS.Timeout | null;
@@ -14,9 +13,7 @@ class ScriptLoader extends React.Component<ScriptLoaderProps, {
     renderScript: boolean;
     updated: boolean;
 }> {
-    customOnError: Function;
-    customOnLoad: Function;
-    customOnCreate: Function;
+ 
 
     constructor(props: ScriptLoaderProps) {
 
@@ -57,6 +54,7 @@ class ScriptLoader extends React.Component<ScriptLoaderProps, {
     }
 
     log(msg: string, style?: string, indent?: number) {
+        
         if (this.props.debug) {
             const indentStr = indent ? ' '.repeat(indent) : '';
             console.log(`%c ScriptLoader debug {src: "${this.state.src}"}`, style || `color: #00ff00; font-weight: bold;`);
@@ -95,20 +93,22 @@ class ScriptLoader extends React.Component<ScriptLoaderProps, {
             id
         } = this.state;
 
-        const {
-            otherProps,
-        } = this.props;
+     
 
         const script = document.createElement('script');
         script.src = src;
 
+        const scriptPropKeys = Object.keys(this.state);
+
+        const otherPropsKeys = Object.keys(this.props).filter((prop) => !scriptPropKeys.includes(prop));
+
         // Add custom attributes
-        if(otherProps) {
+        if(otherPropsKeys.length > 0) {
 
         
-        for (const [attr, value] of Object.entries(otherProps)) {
+        for (const [attr, value] of Object.entries(this.props)) {
 
-            if (attr === 'onCreate' || attr === 'onLoad' || attr === 'onError' || attr === 'onSuccess' || attr === 'debug' || attr === 'render') {
+            if (scriptPropKeys.includes(attr)) {
                 continue;
             }
             script.setAttribute(attr, value as any);
@@ -158,19 +158,15 @@ class ScriptLoader extends React.Component<ScriptLoaderProps, {
         this.log(`onsuccess exiting... for { src: "${this.state.src}" }`, 'color: #ff0000; font-weight: bold;', 2);
     }
 
-    onLoad (e?:  Event) {
-        const {
-   
-            onLoad
-        
-        } = this.props;
+    onLoad (e?:  Event | undefined) {
+        const customOnLoad = this.props.onLoad as (e?: Event) => void;
         this.log(`onload started... for { src: "${this.state.src}" }`, 'color: #ff0000; font-weight: bold;', 2);
 
         if(e) {
             this.log(`onload event: ${JSON.stringify(e, null, 2)}`, 'color: #ff0000; font-weight: bold;', 4)
          }
-        if(onLoad) {
-            onLoad(e);
+        if(customOnLoad) {
+            customOnLoad(e);
         }
         this.log(`onload exiting... for { src: "${this.state.src}" }`, 'color: #ff0000; font-weight: bold;', 2);
     }
@@ -233,7 +229,7 @@ class ScriptLoader extends React.Component<ScriptLoaderProps, {
      * }
      * ``
      */
-export declare type ScriptLoaderProps = {
+export type ScriptLoaderProps = {
     delayMs?: number;
     id?: string;
     onCreate?: (event?: Event) => void;
@@ -250,4 +246,5 @@ export declare type ScriptLoaderProps = {
 
 
 
-export default ScriptLoader;
+
+
