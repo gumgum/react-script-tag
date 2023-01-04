@@ -1,7 +1,7 @@
 {
   "name": "react-script-tag-18",
   "author": "Jose Santos <jose@gumgum.com>, Mr. Liu <editor@ercaws.com>",
-  "version": "2.420.666",
+  "version": "3.420.666",
   "description": "React Script Tag 18, updated a four year old package that had a very well written script loader tag utility for react, updating to now use TypeScript and React 18",
   "license": "MIT HUTTENLOCHER's REVENGE",
   "main": "lib/index.js",
