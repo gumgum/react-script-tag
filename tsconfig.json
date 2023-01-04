@@ -12,9 +12,9 @@
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,
     "esModuleInterop": true,
-    "outDir": "lib",
-    "declarationDir": "lib",
-    "noEmit": false
+    "outDir": "dist",
+    "declarationDir": "types",
+    "noEmit": true
   },
   "files": ["src/ScriptTag/index.tsx"],
 
