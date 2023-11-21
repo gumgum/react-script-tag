@@ -1,30 +1,9 @@
-/// <reference types="node" />
-import React from "react";
+/// <reference types="react" />
 /** @class ScriptLoader
  * @description This a react component is intended to be a drop-in replacement for the <script> html native tag. After you add it in any location of your react-app, the component will take care on appending, the corresponding script tag to your app's document. It supports all the native attributes as well.
  * @example ```<ScriptLoader src="https://www.google.com/recaptcha/api.js" />```
  */
-export default class ScriptTag extends React.Component<ScriptLoaderProps, {
-    delayMs: number;
-    src: string;
-    timeout: NodeJS.Timeout | null;
-    render: JSX.Element | null;
-    id: string | null;
-    renderScript: boolean;
-    updated: boolean;
-}> {
-    constructor(props: ScriptLoaderProps);
-    componentDidMount(): void;
-    log(msg: string, style?: string, indent?: number): void;
-    componentDidUpdate(): void;
-    componentWillUnmount(): void;
-    _appendScript: () => void;
-    onError(e?: Error | Event | string): void;
-    onSuccess(e?: Error | Event | string): void;
-    onLoad(e?: Event | undefined): void;
-    onCreate(e?: Event): void;
-    render(): JSX.Element | null;
-}
+declare const ScriptTag: (props: ScriptLoaderProps) => JSX.Element;
 /** @type ScriptLoaderProps This is the type declaration for props that can be passed to the ScriptLoader component, `import { ScriptLoaderProps } from 'react-script-loader-18'`
  * @param src The source of the script to be loaded, e.g. 'https://www.google.com/recaptcha/api.js'
  * @param delayMS Artifically adds a delay in milliseconds after the component mounts, but before the script tag is appended to the document. Useful for scripts that are not necessary early on, and may conflict on the browser's request-limit.
@@ -65,3 +44,4 @@ export type ScriptLoaderProps = {
     src: string;
     [key: string]: any;
 };
+export default ScriptTag;

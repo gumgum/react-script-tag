@@ -9,3 +9,4 @@ reports/
 tmp/
 yarn-error.log
 .tern-port
+.vscode

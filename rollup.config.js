@@ -6,7 +6,7 @@ import filesize from 'rollup-plugin-filesize';
 import localResolve from 'rollup-plugin-local-resolve';
 import replace from "rollup-plugin-replace";
 import minify from 'rollup-plugin-babel-minify';
-import typescript from "@rollup/plugin-typescript";
+import typescript from "rollup-plugin-typescript2";
 import { terser } from "rollup-plugin-terser";
 import dts from "rollup-plugin-dts";
 
@@ -80,7 +80,14 @@ export default [
         plugins: [
             peerDepsExternal(),
             localResolve(),
-            babel({ exclude: 'node_modules/**' }),
+            babel({ 
+            babelHelpers: 'external',
+            presets: [
+                "@babel/preset-env",
+                "@babel/preset-react",
+                "@babel/preset-typescript"
+            ],
+          }),
             resolve(),
             commonjs(),
             typescript({ tsconfig: "./tsconfig.json" }),
@@ -95,4 +102,6 @@ export default [
         output: [{ file: "lib/react-script-tag.d.ts", format: "esm" }],
         plugins: [dts()],
     },
+    
+
 ];

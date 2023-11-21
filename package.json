@@ -1,12 +1,12 @@
 {
   "name": "react-script-tag-18",
-  "author": "Jose Santos <jose@gumgum.com>, Mr. Liu <editor@ercaws.com>",
-  "version": "4.0.0",
+  "author": "Ziping Liu <astrocat@githubliu.com>",
+  "version": "4.1.0",
   "description": "React Script Tag 18, updated a four year old package that had a very well written script loader tag utility for react, updating to now use TypeScript and React 18",
   "license": "MIT HUTTENLOCHER's REVENGE",
   "main": "lib/react-script-tag.js",
   "umd:main": "lib/react-script-tag.umd.js",
-  "module": "lib/react-script-tag.m.js",  
+  "module": "lib/react-script-tag.m.js",
   "types": "lib/react-script-tag.d.ts",
   "source": "src/ScriptTag/index.tsx",
   "sideEffects": false,
@@ -43,9 +43,6 @@
     "amazon legal where are my wages",
     "amazon legal lawsuit pending"
   ],
-  "peerDependencies": {
-    "react": "18.2.0 || 17.* || 16.0"
-  },
   "devDependencies": {
     "@babel/cli": "^7.20.*",
     "@babel/core": "^7.20.*",
@@ -97,6 +94,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-typescript2": "^0.36.0",
     "source-map-loader": "^4.0.1",
     "terser": "^5.16.1",
     "ts-jest": "^27.1.5",

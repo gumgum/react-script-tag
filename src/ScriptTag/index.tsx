@@ -1,270 +1,182 @@
-import React from "react";
+import React  from "react";
 
 /** @class ScriptLoader
- * @description This a react component is intended to be a drop-in replacement for the <script> html native tag. After you add it in any location of your react-app, the component will take care on appending, the corresponding script tag to your app's document. It supports all the native attributes as well.
+ * @description a react component is intended to be a drop-in replacement for the <script> html native tag. After you add it in any location of your react-app, the component will take care on appending, the corresponding script tag to your app's document. It supports all the native attributes as well.
  * @example ```<ScriptLoader src="https://www.google.com/recaptcha/api.js" />```
  */
-export default class ScriptTag extends React.Component<
-    ScriptLoaderProps,
-    {
-        delayMs: number;
-        src: string;
-        timeout: NodeJS.Timeout | null;
-        render: JSX.Element | null;
-        id: string | null;
-        renderScript: boolean;
-        updated: boolean;
-    }
-> {
-    constructor(props: ScriptLoaderProps) {
-        super(props);
+const ScriptTag = (props: ScriptLoaderProps) => {
 
-        this.state = {
-            delayMs: props.delayMs || 0,
-            src: props.src,
-            timeout: null,
-            render: props.render || null,
-            id: props.id || null,
-            renderScript: props.renderScript || false,
-            updated: false,
-        };
+    //  useEffect(()=>{
 
-        this.componentDidMount = this.componentDidMount.bind(this);
-        this.componentWillUnmount = this.componentWillUnmount.bind(this);
-        this._appendScript = this._appendScript.bind(this);
-        this.render = this.render.bind(this);
+    //     console.info('UseEffect called at ScriptTag', props);
 
-        this.onCreate = this.onCreate.bind(this);
-        this.onLoad = this.onLoad.bind(this);
-        this.onError = this.onError.bind(this);
-        this.onSuccess = this.onSuccess.bind(this);
-    }
+    // }, [props]);
+    const log = React.useCallback((msg: string, style?: string, indent?: number) => {
 
-    componentDidMount() {
-        this.log(
-            "componentDidMount started",
-            "color: #ff0000; font-weight: bold;",
-            2
-        );
+        if (props.debug) {
+            const indentStr = indent ? ' '.repeat(indent) : '';
+            console.log(`%c ScriptLoader debug {src: "${props.src}"}`, style || `color: #00ff00; font-weight: bold;`);
 
-        this.setState({
-            timeout: setTimeout(this._appendScript, this.state.delayMs),
-        });
-
-        this.log(
-            "componentDidMount exiting",
-            "color: #ff0000; font-weight: bold;",
-            2
-        );
-    }
-
-    log(msg: string, style?: string, indent?: number) {
-        if (this.props.debug) {
-            const indentStr = indent ? " ".repeat(indent) : "";
-            console.log(
-                `%c ScriptLoader debug {src: "${this.state.src}"}`,
-                style || `color: #00ff00; font-weight: bold;`
-            );
-
-            console.log(
-                `%c ${indentStr} ${msg}`,
-                style || `color: #00ff00; font-weight: bold;`
-            );
+            console.log(`%c ${indentStr} ${msg}`, style || `color: #00ff00; font-weight: bold;`);
         }
-    }
+    }, [props]);
+ 
+    const [updated, setUpdated] = React.useState(false);
+    const [mounted, setMounted] = React.useState(false);
+    const scriptRef = React.createRef<HTMLScriptElement>();
+    const onError = React.useCallback((e?: Error | Event | string) => {
+        const {
 
-    componentDidUpdate() {
-        this.log(
-            "componentDidUpdate started",
-            "color: #ff0000; font-weight: bold;",
-            2
-        );
-        if (this.state.updated == false) {
-            this.setState({
-                updated: true,
-            });
-            this.onSuccess();
-        }
-        this.log(
-            "componentDidUpdate exiting",
-            "color: #ff0000; font-weight: bold;",
-            2
-        );
-    }
-    componentWillUnmount() {
-        this.log(
-            "componentWillUnmount started",
-            "color: #ff0000; font-weight: bold;",
-            2
-        );
-        if (this.state.timeout) {
-            this.log(
-                "Clearing Timeout...",
-                "color: #ff0000; font-weight: medium;",
-                4
-            );
-            clearTimeout(this.state.timeout);
-        }
-        this.log(
-            "componentWillUnmount exiting",
-            "color: #ff0000; font-weight: bold;",
-            2
-        );
-    }
+            onError
 
-    _appendScript = () => {
-        this.log(
-            "_appendScript started",
-            "color: #ff0000; font-weight: bold;",
-            2
-        );
-
-        const { delayMs, src, id } = this.state;
-
-        const script = document.createElement("script");
-        script.src = src;
-     
-
-        if(this.state.id) {
-            script.id = this.state.id;
-        }
-
-
-        const scriptPropKeys = Object.keys(this.state);
-        const otherPropsKeys = Object.keys(this.props).filter(
-            (prop) => !scriptPropKeys.includes(prop)
-        );
-        script.setAttribute("data-delayMs", delayMs.toString());
-
-        // Add custom attributes
-        if (otherPropsKeys.length > 0) {
-            for (const [attr, value] of Object.entries(this.props)) {
-                if (scriptPropKeys.includes(attr)) {
-                    continue;
-                }
-                script.setAttribute(attr, value as any);
-            }
-        }
-
-        script.onload = this.onLoad;
-        script.onerror = this.onError;
-        document.body.appendChild(script);
-
-        this.onCreate();
-
-        this.log(
-            "_appendScript exiting",
-            "color: #ff0000; font-weight: bold;",
-            2
-        );
-    };
-
-    onError(e?: Error | Event | string) {
-        const { onError } = this.props;
-        this.log(
-            `onerror started... for { src: "${this.state.src}" }`,
-            "color: #ff0000; font-weight: bold;",
-            2
-        );
+        } = props;
+        log(`onerror started... for { src: "${props.src}" }`, 'color: #ff0000; font-weight: bold;', 2);
         if (onError) {
             onError(e);
         }
-        this.log(
-            `onerror exiting... for { src: "${this.state.src}" }`,
-            "color: #ff0000; font-weight: bold;",
-            2
-        );
-    }
+        log(`onerror exiting... for { src: "${props.src}" }`, 'color: #ff0000; font-weight: bold;', 2);
+    }, [props, log]);
 
-    onSuccess(e?: Error | Event | string) {
-        const { onSuccess } = this.props;
-        this.log(
-            `onsuccess started... for { src: "${this.state.src}" }`,
-            "color: #ff0000; font-weight: bold;",
-            2
-        );
+    const onSuccess = (e?: Error | Event | string) => {
+        const {
+
+            onSuccess
+
+        } = props;
+        log(`onsuccess started... for { src: "${props.src}" }`, 'color: #ff0000; font-weight: bold;', 2);
         if (onSuccess) {
             onSuccess();
         }
-        this.log(
-            `onsuccess exiting... for { src: "${this.state.src}" }`,
-            "color: #ff0000; font-weight: bold;",
-            2
-        );
+        log(`onsuccess exiting... for { src: "${props.src}" }`, 'color: #ff0000; font-weight: bold;', 2);
     }
 
-    onLoad(e?: Event | undefined) {
-        const customOnLoad = this.props.onLoad as (e?: Event) => void;
-        this.log(
-            `onload started... for { src: "${this.state.src}" }`,
-            "color: #ff0000; font-weight: bold;",
-            2
-        );
+    const onLoad = React.useCallback((e?: Event | undefined) => {
+        const customOnLoad = props.onLoad as (e?: Event) => void;
+        log(`onload started... for { src: "${props.src}" }`, 'color: #ff0000; font-weight: bold;', 2);
 
         if (e) {
-            this.log(
-                `onload event: ${JSON.stringify(e, null, 2)}`,
-                "color: #ff0000; font-weight: bold;",
-                4
-            );
+            log(`onload event: ${JSON.stringify(e, null, 2)}`, 'color: #ff0000; font-weight: bold;', 4)
         }
         if (customOnLoad) {
             customOnLoad(e);
         }
-        this.log(
-            `onload exiting... for { src: "${this.state.src}" }`,
-            "color: #ff0000; font-weight: bold;",
-            2
-        );
-    }
+        log(`onload exiting... for { src: "${props.src}" }`, 'color: #ff0000; font-weight: bold;', 2);
+    }, [props, log]);
 
-    onCreate(e?: Event) {
-        const { onLoad } = this.props;
-        this.log(
-            `oncreate started... for { src: "${this.state.src}" }`,
-            "color: #ff0000; font-weight: bold;",
-            2
-        );
+    const onCreate = React.useCallback((e?: Event) => {
+        const {
+
+            onLoad
+
+        } = props;
+        log(`oncreate started... for { src: "${props.src}" }`, 'color: #ff0000; font-weight: bold;', 2);
 
         if (e) {
-            this.log(
-                `oncreate event: ${JSON.stringify(e, null, 2)}`,
-                "color: #ff0000; font-weight: bold;",
-                4
-            );
+            log(`oncreate event: ${JSON.stringify(e, null, 2)}`, 'color: #ff0000; font-weight: bold;', 4)
         }
 
         if (onLoad) {
             onLoad(e);
         }
-        this.log(
-            `oncreate exiting... for { src: "${this.state.src}" }`,
-            "color: #ff0000; font-weight: bold;",
-            2
-        );
-    }
+        log(`oncreate exiting... for { src: "${props.src}" }`, 'color: #ff0000; font-weight: bold;', 2);
+    }, [props, log]);
 
-    render() {
-        const { updated, render } = this.state;
-        this.log(
-            `render called, { src: ${this.state.src}}`,
-            "color: #ff0000; font-weight: bold;",
-            2
-        );
 
-        return updated && render ? render : null;
+
+
+    //unique hash from props 
+    const hash = React.useMemo(() => {
+        return JSON.stringify(props);
     }
+        , [props]);
+
+    console.log("React", React.useEffect);
+
+    React.useEffect(() => {
+
+        const componentDidMount = () => {
+            log('componentDidMount started', 'color: #ff0000; font-weight: bold;', 2);
+            const _appendScript = () => {
+
+                log('_appendScript started', 'color: #ff0000; font-weight: bold;', 2);
+
+                const {
+                    delayMs,
+                    src,
+                    id
+                } = props;
+
+
+
+                const script = document.createElement('script');
+                script.src = src;
+
+
+
+                script.setAttribute('data-ref', hash);
+                script.setAttribute('data-delayMs', (delayMs || 0).toString());
+
+                if (id) {
+                    script.setAttribute('id', id);
+                }
+
+                script.onload = onLoad;
+                script.onerror = onError;
+                document.body.appendChild(script);
+
+                onCreate();
+
+
+                log('_appendScript exiting', 'color: #ff0000; font-weight: bold;', 2);
+
+            };
+            const timeoutId = setTimeout(_appendScript, props.delayMs || 0);
+
+            setMounted(true);
+            log('componentDidMount exiting', 'color: #ff0000; font-weight: bold;', 2);
+
+        }
+
+        const componentDidUpdate = () => {
+            log('componentDidUpdate started', 'color: #ff0000; font-weight: bold;', 2);
+            if (!updated) {
+                setUpdated(true);
+            }
+            log('componentDidUpdate exiting', 'color: #ff0000; font-weight: bold;', 2);
+        }
+
+
+        if (!mounted) {
+            componentDidMount();
+        }
+
+        if (mounted && !updated) {
+            componentDidUpdate();
+        }
+
+
+
+
+    }, [props, updated, log, onError, onLoad, onCreate, mounted, hash]);
+
+    return (
+        <script
+            ref={scriptRef}
+            {...props}
+        />
+    )
+
 }
 
-/** @type ScriptLoaderProps This is the type declaration for props that can be passed to the ScriptLoader component, `import { ScriptLoaderProps } from 'react-script-loader-18'`
+/** @type ScriptLoaderProps is the type declaration for props that can be passed to the ScriptLoader component, `import { ScriptLoaderProps } from 'react-script-loader-18'`
  * @param src The source of the script to be loaded, e.g. 'https://www.google.com/recaptcha/api.js'
  * @param delayMS Artifically adds a delay in milliseconds after the component mounts, but before the script tag is appended to the document. Useful for scripts that are not necessary early on, and may conflict on the browser's request-limit.
  * @param onCreate A callback function that is called just right after the script tag has been appended to the document.
- * @param onLoad This function is called after the script has been successfully loaded.
- * @param onError This function is called if the script fails to load.
- * @param onSuccess This function is called if the script is loaded successfully.
- * @param render This is an optional JSX.Element that renders.
- * @param debug This is a boolean flag that enables debug mode. It will log to the console the events that are triggered.
+ * @param onLoad function is called after the script has been successfully loaded.
+ * @param onError function is called if the script fails to load.
+ * @param onSuccess function is called if the script is loaded successfully.
+ * @param render is an optional JSX.Element that renders.
+ * @param debug is a boolean flag that enables debug mode. It will log to the console the events that are triggered.
  * @example ``
  * import { ScriptLoaderProps } from 'react-script-loader-18';
  * const props: ScriptLoaderProps =
@@ -300,5 +212,7 @@ export type ScriptLoaderProps = {
     render?: JSX.Element;
     renderScript?: boolean;
     src: string;
-    [key: string]: any;
-};
+
+} & React.DetailedHTMLProps<React.ScriptHTMLAttributes<HTMLScriptElement>, HTMLScriptElement>;
+
+export default ScriptTag;
